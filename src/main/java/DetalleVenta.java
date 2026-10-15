@@ -32,4 +32,12 @@ public class DetalleVenta {
     public void setSubtotal(double subtotal) {
         this.subtotal = subtotal;
     }
+
+    @Override
+    public String toString() {
+        return "DetalleVenta" +
+                "Cantidad: " + cantidad +
+                ", Precio Unitario Final: " + precioUniFinal +
+                ", Subtotal: " + subtotal;
+    }
 }

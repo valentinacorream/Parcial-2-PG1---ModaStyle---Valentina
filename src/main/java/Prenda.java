@@ -4,11 +4,15 @@ public class Prenda {
     private String marca;
     private double precioUnitario;
 
-    public Prenda(String codigo, String nombre, String marca, double precioUnitario) {
+    private CategoriaPrenda categoriaPrenda;
+
+    public Prenda(String codigo, String nombre, String marca, double precioUnitario, CategoriaPrenda categoriaPrenda) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.marca = marca;
         this.precioUnitario = precioUnitario;
+        this.categoriaPrenda = categoriaPrenda;
+
     }
 
     public String getCodigo() {
@@ -41,5 +45,23 @@ public class Prenda {
 
     public void setPrecioUnitario(double precioUnitario) {
         this.precioUnitario = precioUnitario;
+    }
+
+    public CategoriaPrenda getCategoriaPrenda() {
+        return categoriaPrenda;
+    }
+
+    public void setCategoriaPrenda(CategoriaPrenda categoriaPrenda) {
+        this.categoriaPrenda = categoriaPrenda;
+    }
+
+    @Override
+    public String toString() {
+        return "Prenda " +
+                "\nCódigo: " + codigo+
+                ", Nombre: " + nombre +
+                ", Marca: " + marca +
+                ", Precio Unitario: " + precioUnitario+
+                ", Categoría de la prenda: "+categoriaPrenda;
     }
 }
