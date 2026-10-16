@@ -73,8 +73,8 @@ public class Venta {
         return "Venta" +
                 "\nCódigo: " + codigo +
                 ", Fecha: " + fecha+
-                ", Ciente: "+cliente+
-                ", Vendedor: "+vendedor+
+                ", Ciente: "+cliente.getNombre()+
+                ", Vendedor: "+vendedor.getNombre()+
                 ", Sucursal: "+sucursal.getNombre()+
                 ", Lista detalle de venta: "+listaDetalleVentas+
                 ", Total: "+calcularTotal();
