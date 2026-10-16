@@ -62,8 +62,10 @@ public class Inventario {
 
     @Override
     public String toString() {
-        return "Inventario" +
-                "\nColor:" + color +
+        return  "Prenda: "+prenda.getNombre()+
+                ", Código: "+prenda.getCodigo()+
+                ", Talla: "+talla.mostrarTalla()+
+                ", Color:" + color +
                 ", Cantidad Disponible: " + cantidadDisponible +
                 ", Lista detalle de venta: " + listaDetalleVentas;
     }
