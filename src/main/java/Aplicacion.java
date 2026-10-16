@@ -28,7 +28,7 @@ public class Aplicacion {
             System.out.println("15. Consultar compras por cliente");
             System.out.println("16. Consultar ingresos por sucursal");
             System.out.println("17. Consultar prenda más vendida");
-            System.out.println("0. Salir");
+            System.out.println("18. Salir");
 
             System.out.print("Seleccione una opción: ");
             opcion = sc.nextInt();
