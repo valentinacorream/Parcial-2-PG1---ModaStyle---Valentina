@@ -105,11 +105,17 @@ public class Sucursal {
 
     //Agregar inventario
     public boolean agregarInventario(Inventario inventario) {
-        boolean agregado= false;
-        boolean existe= verificarInventario(inventario);
-        if (existe==false){
+        boolean agregado = false;
+        for (Inventario inv : listaInventarios) {
+            if (inv.getPrenda().getCodigo().equalsIgnoreCase(inventario.getPrenda().getCodigo()) && inv.getTalla().mostrarTalla().equalsIgnoreCase(inventario.getTalla().mostrarTalla()) && inv.getColor().equalsIgnoreCase(inventario.getColor())) {
+                inv.agregarExistencias(inventario.getCantidadDisponible());
+                agregado = true;
+                break;
+            }
+        }
+        if (agregado == false) {
             listaInventarios.add(inventario);
-            agregado= true;
+            agregado = true;
         }
         return agregado;
     }
@@ -177,6 +183,50 @@ public class Sucursal {
             agregado= true;
         }
         return agregado;
+    }
+
+    //Registrar venta
+    public boolean registrarVenta(Venta venta, int documentoCliente, int documentoVendedor, List<Cliente> listaClientes) {
+        boolean registrada = false;
+        for (Cliente cliente : listaClientes) {
+            if (cliente.getDocumento() == documentoCliente) {
+                for (Vendedor vendedor : listaVendedores) {
+                    if (vendedor.getDocumento() == documentoVendedor) {
+                        venta.setCliente(cliente);
+                        venta.setVendedor(vendedor);
+                        venta.setSucursal(this);
+                        if (agregarVenta(venta)) {
+                            cliente.getListaVentas().add(venta);
+                            vendedor.getListaVentas().add(venta);
+                            registrada = true;
+                        }
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+        return registrada;
+    }
+
+    //Registrar detalleventa
+    public boolean registrarDetalleVenta(Venta venta, Prenda prendaBuscada, Talla tallaBuscada, String colorBuscado, int cantidad) {
+        boolean registrado = false;
+        for (Inventario inventario : listaInventarios) {
+            if (inventario.getPrenda().getCodigo().equalsIgnoreCase(prendaBuscada.getCodigo()) && inventario.getTalla().mostrarTalla().equalsIgnoreCase(tallaBuscada.mostrarTalla()) && inventario.getColor().equalsIgnoreCase(colorBuscado)) {
+                if (verificarStock(prendaBuscada, tallaBuscada, colorBuscado, cantidad)) {
+                    DetalleVenta detalle = new DetalleVenta(cantidad, 0, 0, inventario);
+                    detalle.calcularPrecioFinal(prendaBuscada, venta.getCliente());
+                    detalle.calcularSubtotal();
+                    if (venta.agregarDetalleVenta(detalle)) {
+                        descontarStock(prendaBuscada, tallaBuscada, colorBuscado, cantidad);
+                        registrado = true;
+                    }
+                }
+                break;
+            }
+        }
+        return registrado;
     }
 
     //Buscar venta
