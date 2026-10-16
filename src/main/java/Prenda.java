@@ -64,4 +64,10 @@ public class Prenda {
                 ", Precio Unitario: " + precioUnitario+
                 ", Categoría de la prenda: "+categoriaPrenda;
     }
+
+    //Metodo para calcular precio de una prenda con recargo
+    public double calcularPrecio(){
+        double precioConRecargo= precioUnitario +(precioUnitario* categoriaPrenda.getRecargo());
+        return precioConRecargo;
+    }
 }

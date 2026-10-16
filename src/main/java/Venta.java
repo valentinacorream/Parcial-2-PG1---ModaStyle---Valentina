@@ -6,6 +6,10 @@ public class Venta {
     private String codigo;
     private LocalDate fecha;
 
+    private Cliente cliente;
+    private Vendedor vendedor;
+    private Sucursal sucursal;
+
     //Lista
     private List<DetalleVenta> listaDetalleVentas;
 
@@ -40,11 +44,58 @@ public class Venta {
         this.listaDetalleVentas = listaDetalleVentas;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Vendedor getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(Vendedor vendedor) {
+        this.vendedor = vendedor;
+    }
+
+    public Sucursal getSucursal() {
+        return sucursal;
+    }
+
+    public void setSucursal(Sucursal sucursal) {
+        this.sucursal = sucursal;
+    }
+
     @Override
     public String toString() {
         return "Venta" +
                 "\nCódigo: " + codigo +
                 ", Fecha: " + fecha+
-                ", Lista detalle de venta: "+listaDetalleVentas;
+                ", Ciente: "+cliente+
+                ", Vendedor: "+vendedor+
+                ", Sucursal: "+sucursal.getNombre()+
+                ", Lista detalle de venta: "+listaDetalleVentas+
+                ", Total: "+calcularTotal();
+    }
+
+    //Calcular total de la venta
+    public double calcularTotal() {
+        double total = 0;
+        for (DetalleVenta detalle : listaDetalleVentas) {
+            total += detalle.getSubtotal();
+        }
+        return total;
+    }
+
+    //Agregar detalle venta
+    public boolean agregarDetalleVenta(DetalleVenta detalle) {
+        boolean agregado = false;
+        if (detalle.getCantidad() > 0) {
+            listaDetalleVentas.add(detalle);
+            agregado = true;
+        }
+        return agregado;
     }
 }

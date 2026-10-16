@@ -90,4 +90,148 @@ public class Sucursal {
                 ", Lista vendedores: "+listaVendedores+
                 ", Lista ventas: "+listaVentas;
     }
+
+    //Verificar inventario
+    public boolean verificarInventario(Inventario inventario) {
+        boolean existe = false;
+        for (Inventario inv : listaInventarios) {
+            if (inv.getPrenda().getCodigo().equalsIgnoreCase(inventario.getPrenda().getCodigo()) && inv.getTalla().mostrarTalla().equalsIgnoreCase(inventario.getTalla().mostrarTalla()) && inv.getColor().equalsIgnoreCase(inventario.getColor())) {
+                existe = true;
+                break;
+            }
+        }
+        return existe;
+    }
+
+    //Agregar inventario
+    public boolean agregarInventario(Inventario inventario) {
+        boolean agregado= false;
+        boolean existe= verificarInventario(inventario);
+        if (existe==false){
+            listaInventarios.add(inventario);
+            agregado= true;
+        }
+        return agregado;
+    }
+
+    //Buscar inventario
+    public boolean buscarInventario(Prenda prendaBuscada, Talla tallaBuscada, String colorBuscado) {
+        boolean encontrado = false;
+        for (Inventario inventario : listaInventarios) {
+            if (inventario.getPrenda().getCodigo().equalsIgnoreCase(prendaBuscada.getCodigo()) && inventario.getTalla().mostrarTalla().equalsIgnoreCase(tallaBuscada.mostrarTalla()) && inventario.getColor().equalsIgnoreCase(colorBuscado)) {
+                System.out.println(inventario);
+                encontrado = true;
+                break;
+            }
+        }
+        if (encontrado == false) {
+            System.out.println("El inventario no existe");
+        }
+        return encontrado;
+    }
+
+    //Verificar stock
+    public boolean verificarStock(Prenda prendaBuscada, Talla tallaBuscada, String colorBuscado, int cantidad) {
+        boolean disponible = false;
+        for (Inventario inventario : listaInventarios) {
+            if (inventario.getPrenda().getCodigo().equalsIgnoreCase(prendaBuscada.getCodigo()) && inventario.getTalla().mostrarTalla().equalsIgnoreCase(tallaBuscada.mostrarTalla()) && inventario.getColor().equalsIgnoreCase(colorBuscado)) {
+                disponible = inventario.verificarExistencias(cantidad);
+                break;
+            }
+        }
+
+        return disponible;
+    }
+
+    //Descontar stock
+    public boolean descontarStock(Prenda prendaBuscada, Talla tallaBuscada, String colorBuscado, int cantidad) {
+        boolean descontado = false;
+        for (Inventario inventario : listaInventarios) {
+            if (inventario.getPrenda().getCodigo().equalsIgnoreCase(prendaBuscada.getCodigo()) && inventario.getTalla().mostrarTalla().equalsIgnoreCase(tallaBuscada.mostrarTalla()) && inventario.getColor().equalsIgnoreCase(colorBuscado)) {
+                descontado = inventario.descontarExistencias(cantidad);
+                break;
+            }
+        }
+
+        return descontado;
+    }
+
+    //Verificar Venta
+    public boolean verificarVenta(String codigo) {
+        boolean existe = false;
+        for (Venta venta : listaVentas) {
+            if (venta.getCodigo().equalsIgnoreCase(codigo)) {
+                existe = true;
+                break;
+            }
+        }
+        return existe;
+    }
+
+    //Agregar Venta
+    public boolean agregarVenta(Venta venta) {
+        boolean agregado = false;
+        boolean existe = verificarVenta(venta.getCodigo());
+        if (existe== false){
+            listaVentas.add(venta);
+            agregado= true;
+        }
+        return agregado;
+    }
+
+    //Buscar venta
+    public boolean buscarVenta(String codigo) {
+        boolean encontrado = false;
+        for (Venta venta : listaVentas) {
+            if (venta.getCodigo().equalsIgnoreCase(codigo)) {
+                System.out.println(venta);
+                encontrado = true;
+                break;
+            }
+        }
+        if (encontrado == false) {
+            System.out.println("La venta no existe");
+        }
+        return encontrado;
+    }
+
+    // Verificar Vendedor
+    public boolean verificarVendedor(int documento) {
+        boolean existe = false;
+        for (Vendedor vendedor : listaVendedores) {
+            if (vendedor.getDocumento() == documento) {
+                existe = true;
+                break;
+            }
+        }
+        return existe;
+    }
+
+    // Agregar Vendedor
+    public boolean agregarVendedor(Vendedor vendedor) {
+        boolean agregado = false;
+        boolean existe = verificarVendedor(vendedor.getDocumento());
+        if (existe == false) {
+            listaVendedores.add(vendedor);
+            vendedor.setSucursal(this);
+            agregado = true;
+        }
+        return agregado;
+    }
+
+    // Buscar Vendedor
+    public boolean buscarVendedor(int documento) {
+        boolean encontrado = false;
+        for (Vendedor vendedor : listaVendedores) {
+            if (vendedor.getDocumento() == documento) {
+                System.out.println(vendedor.mostrarDatos());
+                encontrado = true;
+                break;
+            }
+        }
+        if (encontrado == false) {
+            System.out.println("El vendedor no existe.");
+        }
+        return encontrado;
+    }
 }

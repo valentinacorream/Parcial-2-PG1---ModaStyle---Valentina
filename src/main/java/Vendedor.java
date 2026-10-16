@@ -7,6 +7,8 @@ public class Vendedor extends Persona{
     private LocalDate fechaContrato;
     private double salario;
 
+    private Sucursal sucursal;
+
     //Lista
     private List<Venta> listaVentas;
 
@@ -49,6 +51,14 @@ public class Vendedor extends Persona{
 
     public void setListaVentas(List<Venta> listaVentas) {
         this.listaVentas = listaVentas;
+    }
+
+    public Sucursal getSucursal() {
+        return sucursal;
+    }
+
+    public void setSucursal(Sucursal sucursal) {
+        this.sucursal = sucursal;
     }
 
     @Override
